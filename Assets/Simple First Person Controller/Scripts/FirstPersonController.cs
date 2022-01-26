@@ -2,7 +2,7 @@
 using Photon.Pun;
 
 [RequireComponent(typeof(CharacterController))]
-public class FirstPersonController : MonoBehaviourPunCallbacks, IPunObservable
+public class FirstPersonController : MonoBehaviourPunCallbacks
 {
     /// <summary>
     /// Move the player charactercontroller based on horizontal and vertical axis input
@@ -32,8 +32,6 @@ public class FirstPersonController : MonoBehaviourPunCallbacks, IPunObservable
     CharacterController cc;
 
 
-    public int score;
-    public TextMesh scoreDisplay;
     private void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -42,8 +40,6 @@ public class FirstPersonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             GetComponentInChildren<AudioListener>().enabled = false;
         }
-
-        score = 0;
     }
 
     // Update is called once per frame
@@ -53,12 +49,7 @@ public class FirstPersonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             Look();
             Move();
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                score++;
-            }
         }
-        scoreDisplay.text = $"Score: {score}";
     }
 
     void Look()
@@ -98,17 +89,5 @@ public class FirstPersonController : MonoBehaviourPunCallbacks, IPunObservable
         move.y = yVelocity;
         //and finally move
         cc.Move(move * Time.deltaTime);
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(score);
-        }
-        else
-        {
-            score = (int)stream.ReceiveNext();
-        }
     }
 }

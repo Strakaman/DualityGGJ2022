@@ -210,8 +210,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 8831217273865095180}
   - {fileID: 593231573057640452}
+  - {fileID: 6020253988159268852}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -245,6 +245,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleTransform: {fileID: 3929464735255681811}
   gunParticle: {fileID: 6408682262069862347}
+  playerScore: {fileID: 6020253988159268852}
+  scoreIncreaseBase: 1
+  scoreIncreaseMultiplier: 2
+--- !u!114 &6020253988159268852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8831217273865095171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bbe5225c8e70943813f5670cb0190f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  scoreDisplay: {fileID: 8168695900642717449}
 --- !u!1001 &6915413128715859954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -328,17 +345,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2699541615817244671, guid: 5d353d131e213f94fb9639806519a1fa, type: 3}
   m_PrefabInstance: {fileID: 6915413128715859954}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8831217273865095180 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2699541615817244670, guid: 5d353d131e213f94fb9639806519a1fa, type: 3}
-  m_PrefabInstance: {fileID: 6915413128715859954}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8831217273865095171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75773a9e7fe83d2479dea1b0917cf7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8772931503055835586
 PrefabInstance:
   m_ObjectHideFlags: 0

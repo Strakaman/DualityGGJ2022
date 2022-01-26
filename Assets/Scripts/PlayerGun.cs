@@ -5,11 +5,17 @@ public class PlayerGun : MonoBehaviourPunCallbacks
 {
     public Transform muzzleTransform;
     public ParticleSystem gunParticle;
+    public PlayerScore playerScore;
     int playerLayer = 11;
 
+    public int scoreIncreaseBase = 1;
+    public int scoreIncreaseMultiplier = 2;
     void Start()
     {
-        
+        if (playerScore == null)
+        {
+            playerScore = GetComponent<PlayerScore>();
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +40,7 @@ public class PlayerGun : MonoBehaviourPunCallbacks
         {
             GameObject go = hit.collider.gameObject;
             Debug.Log($"Hit: {go.name} Layer Mask: {go.layer}");
+            playerScore.IncreaseScore(scoreIncreaseBase * scoreIncreaseMultiplier);
         }
     }
 }
