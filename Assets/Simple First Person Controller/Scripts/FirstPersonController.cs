@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using Photon.Pun;
 
 [RequireComponent(typeof(CharacterController))]
@@ -8,34 +9,23 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
     /// Move the player charactercontroller based on horizontal and vertical axis input
     /// </summary>
 
-    float yVelocity = 0f;
     [Range(5f,25f)]
-    public float gravity = 15f;
+    public float gravity = -9.81f;
     //the speed of the player movement
     [Range(5f,15f)]
-    public float movementSpeed = 10f;
-    //jump speed
-    [Range(5f,15f)]
-    public float jumpSpeed = 10f;
-
-    //now the camera so we can move it up and down
-    Transform cameraTransform;
-    float pitch = 0f;
-    [Range(1f,90f)]
-    public float maxPitch = 85f;
-    [Range(-1f, -90f)]
-    public float minPitch = -85f;
-    [Range(0.5f, 5f)]
-    public float mouseSensitivity = 2f;
+    public float movementSpeed = 5f;
+    public float gamepadDeadzone = 0.19f;
+    public float gamepadRotateSmooting = 1000f;
 
     //the charachtercompononet for moving us
     CharacterController cc;
+
+    public Vector3 velocity;
 
 
     private void Start()
     {
         cc = GetComponent<CharacterController>();
-        cameraTransform = GetComponentInChildren<Camera>().transform;
         if (!photonView.IsMine)
         {
             GetComponentInChildren<AudioListener>().enabled = false;
@@ -54,40 +44,43 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
 
     void Look()
     {
-        //get the mouse inpuit axis values
-        float xInput = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float yInput = Input.GetAxis("Mouse Y") * mouseSensitivity;
-        //turn the whole object based on the x input
-        transform.Rotate(0, xInput, 0);
-        //now add on y input to pitch, and clamp it
-        pitch -= yInput;
-        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-        //create the local rotation value for the camera and set it
-        Quaternion rot = Quaternion.Euler(pitch, 0, 0);
-        cameraTransform.localRotation = rot;
+        if (InputManager.instance.isGamepad)
+        {
+            if (Mathf.Abs(InputManager.instance.horizontalLookAxis) > gamepadDeadzone || Mathf.Abs(InputManager.instance.verticalLookAxis) > gamepadDeadzone)
+            {
+                Vector3 playerDirection = Vector3.right * InputManager.instance.horizontalLookAxis + Vector3.right * InputManager.instance.verticalLookAxis;
+                if (playerDirection.sqrMagnitude > 0.0f)
+                {
+                    Quaternion newRotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, gamepadRotateSmooting * Time.deltaTime);
+                }
+            }
+        }
+        else
+        {
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(InputManager.instance.horizontalLookAxis, InputManager.instance.verticalLookAxis));
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayDistance;
+            if (groundPlane.Raycast(ray, out rayDistance))
+            {
+                Vector3 point = ray.GetPoint(rayDistance);
+                LookAt(point);
+            }
+        }
     }
 
     void Move()
     {
-        //update speed based onn the input
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        input = Vector3.ClampMagnitude(input, 1f);
-        //transofrm it based off the player transform and scale it by movement speed
-        Vector3 move = transform.TransformVector(input) * movementSpeed;
-        //is it on the ground
-        if (cc.isGrounded)
-        {
-            yVelocity = -gravity * Time.deltaTime;
-            //check for jump here
-            if (Input.GetButtonDown("Jump"))
-            {
-                yVelocity = jumpSpeed;
-            }
-        }
-        //now add the gravity to the yvelocity
-        yVelocity -= gravity * Time.deltaTime;
-        move.y = yVelocity;
-        //and finally move
-        cc.Move(move * Time.deltaTime);
+        Vector3 move = new Vector3(InputManager.instance.horizontalMovement, 0, InputManager.instance.verticalMovement);
+        cc.Move(move * Time.deltaTime * movementSpeed);
+
+        velocity.y -= gravity * Time.deltaTime;
+        cc.Move(velocity * Time.deltaTime);
+    }
+
+    void LookAt(Vector3 lookPoint)
+    {
+        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        transform.LookAt(heightCorrectedPoint);
     }
 }

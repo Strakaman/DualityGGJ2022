@@ -23,7 +23,7 @@ public class PlayerGun : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (InputManager.instance.fireStarted)
             {
                 Debug.Log("hit");
                 photonView.RPC(nameof(RPC_Shoot), RpcTarget.All);

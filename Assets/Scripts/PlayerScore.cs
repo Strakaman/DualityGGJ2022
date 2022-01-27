@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Photon.Pun;
 
 public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
@@ -18,7 +19,7 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Keyboard.current.cKey.isPressed)
             {
                 IncreaseScore(1);
             }
