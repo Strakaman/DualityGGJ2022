@@ -14,10 +14,11 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     public InputField playerNameInputField;
     public Text createdRoomNameText;
     private List<RoomInfo> roomList = new List<RoomInfo>();
-    public List<GameObject> playerLobbyGridObjects;
     public Button createroomButton;
     public Button joinLobbyButton;
+    public Button joinRandomLobbyButton;
     public Button startMatchButton;
+    public LobbyPlayerList playerListGUI;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +27,12 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         if (!potentialplayerName.Equals(string.Empty))
         {
             playerNameInputField.SetTextWithoutNotify(potentialplayerName);
+            PhotonNetwork.LocalPlayer.NickName = potentialplayerName;
         }
         Debug.Log($"Lobby Name: {potentialplayerName}");
         joinLobbyButton.interactable = false;
         startMatchButton.interactable = false;
+        joinRandomLobbyButton.interactable = true;
         createroomButton.interactable = true;
         DigiConnect();
     }
@@ -50,6 +53,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Joining a random room failed.");
+        OnClickCreate();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -64,6 +68,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         base.OnJoinRoomFailed(returnCode, message);
         Debug.Log("Joining Specified Room Failed");
         joinLobbyButton.interactable = true;
+        joinRandomLobbyButton.interactable = true;
     }
     public override void OnCreatedRoom()
     {
@@ -71,13 +76,16 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         Debug.Log($"We created a room: {PhotonNetwork.CurrentRoom.Name}");
         createdRoomNameText.text = PhotonNetwork.CurrentRoom.Name;
         startMatchButton.interactable = true;
+        joinRandomLobbyButton.interactable = false;
+        joinLobbyButton.interactable = false;
     }
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         Debug.Log($"successfully joined Room: {PhotonNetwork.CurrentRoom.Name} Count: {PhotonNetwork.CurrentRoom.PlayerCount}");
         PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString(Constants.playerName);
-        BuildPlayerListGUI();
+        createroomButton.interactable = false;
+        playerListGUI.BuildPlayerListGUI(PhotonNetwork.PlayerList);
     }
 
     #endregion
@@ -91,8 +99,17 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         Debug.Log($"OnClick Triggered to Join {potentialSessionName}");
         if (potentialSessionName.Equals(string.Empty)) { return; }
         joinLobbyButton.interactable = false;
+        joinRandomLobbyButton.interactable = false;
+        //PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.JoinRoom(potentialSessionName);
+    }
+
+    public void OnClickJoinRandom()
+    {
+        Debug.Log($"OnClick Triggered to Join Random");
+        joinLobbyButton.interactable = false;
+        joinRandomLobbyButton.interactable = false;
         PhotonNetwork.JoinRandomRoom();
-        //PhotonNetwork.JoinLobby(new TypedLobby(potentialSessionName, LobbyType.Default));
     }
 
     public void OnClickCreate()
@@ -141,38 +158,19 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     {
         potentialplayerName = playerName;
         PlayerPrefs.SetString(Constants.playerName, playerName);
+        PhotonNetwork.LocalPlayer.NickName = playerName;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"Player Joined Room: {newPlayer.NickName}");
-        BuildPlayerListGUI();
+        playerListGUI.BuildPlayerListGUI(PhotonNetwork.PlayerList);
     }
 
     public override void OnPlayerLeftRoom (Player newPlayer)
     {
         Debug.Log($"Player Left Room: {newPlayer.NickName}");
-        BuildPlayerListGUI();
-    }
-
-    public void BuildPlayerListGUI()
-    {
-        DisablePlayerListGUI();
-        Debug.Log("Building player List GUI");
-        for (int i=0; i < PhotonNetwork.PlayerList.Length; i++)
-        {
-            Debug.Log($"This is a player: {PhotonNetwork.PlayerList[i].NickName}");
-            playerLobbyGridObjects[i].SetActive(true);
-            playerLobbyGridObjects[i].GetComponentInChildren<Text>().text = PhotonNetwork.PlayerList[i].NickName;
-        }
-    }
-
-    public void DisablePlayerListGUI()
-    {
-        foreach(GameObject go in playerLobbyGridObjects)
-        {
-            go.SetActive(false);
-        }
+        playerListGUI.BuildPlayerListGUI(PhotonNetwork.PlayerList);
     }
 
     public string GenerateLobbyName()
