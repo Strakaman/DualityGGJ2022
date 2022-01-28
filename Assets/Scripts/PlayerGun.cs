@@ -26,10 +26,8 @@ public class PlayerGun : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            Debug.Log("update gun hit");
             if (InputManager.instance.fireStarted)
             {
-                Debug.Log("fire started");
                 photonView.RPC(nameof(RPC_Shoot), RpcTarget.All);
             }
             else

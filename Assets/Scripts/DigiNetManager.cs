@@ -34,6 +34,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         startMatchButton.interactable = false;
         joinRandomLobbyButton.interactable = true;
         createroomButton.interactable = true;
+        PlayerPrefs.SetInt(Constants.CharacterHead, UnityEngine.Random.Range(0,5));
         DigiConnect();
     }
 
