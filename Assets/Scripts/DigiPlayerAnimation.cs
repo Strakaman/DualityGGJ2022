@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class DigiPlayerAnimation : MonoBehaviour
+public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     Animator myAnimator;
@@ -22,10 +22,11 @@ public class DigiPlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        myAnimator.SetBool(nameof(isWalking), isWalking);
-        myAnimator.SetBool(nameof(isDancing), isDancing);
-        myAnimator.SetBool(nameof(isShooting), isShooting);
-
+        if (photonView.IsMine){
+            myAnimator.SetBool(nameof(isWalking), isWalking);
+            myAnimator.SetBool(nameof(isDancing), isDancing);
+            myAnimator.SetBool(nameof(isShooting), isShooting);
+        }
         /*if (isShooting)
         {
             myAnimator.SetTrigger(nameof(isShooting));
