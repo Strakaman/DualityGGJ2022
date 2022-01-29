@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -30,6 +31,10 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
     public void IncreaseScore(int howMuch)
     {
         score += howMuch;
+        //int currentScore = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
+        //currentScore += howMuch;
+        //Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, currentScore } };
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(scoreToSet);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

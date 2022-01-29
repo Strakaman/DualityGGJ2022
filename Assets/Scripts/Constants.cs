@@ -10,14 +10,15 @@ public static class Constants
 {
     public static string sessionName = "SessionName";
     public static string playerName = "PlayerName";
-    public static Color greenTeamColor = new Color(26, 255, 26);
-    public static Color purpleTeamColor = new Color(182, 105, 255);
-    public const string TEAM = "Team";
+    public static Color greenTeamColor = new Color(21, 255, 0);
+    public static Color purpleTeamColor = new Color(196, 0, 255);
+    public const string TEAM_KEY = "Team";
+    public const string SCORE_KEY = "Score";
+    public const string GREEN_SCORE_KEY = "GreenTeamScore";
+    public const string PURPLE_SCORE_KEY = "PurpleTeamScore";
     public const string GREEN_TEAM = "GreenTeam";
     public const string PURPLE_TEAM = "PurpleTeam";
     public const string ENEMY_TEAM = "EnemyTeam";
-    public const string GREEN_SCORE = "GreenTeamScore";
-    public const string PURPLE_SCORE = "PurpleTeamScore";
     public static string CharacterHead = "CharacterHead";
 }
 
