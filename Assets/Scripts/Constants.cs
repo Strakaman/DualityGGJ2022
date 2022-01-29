@@ -18,6 +18,7 @@ public enum Shape
     Cone = 1,
     Radio = 2,
     Star = 3,
-    Round = 4
+    Round = 4,
+    Random = 999,
 }
 

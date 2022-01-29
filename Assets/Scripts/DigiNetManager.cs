@@ -20,6 +20,9 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     public Button startMatchButton;
     public LobbyPlayerList playerListGUI;
 
+    public GameObject lobbyMenu;
+    public GameObject charSelectMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,6 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         startMatchButton.interactable = false;
         joinRandomLobbyButton.interactable = true;
         createroomButton.interactable = true;
-        PlayerPrefs.SetInt(Constants.CharacterHead, UnityEngine.Random.Range(0,5));
         DigiConnect();
     }
 
@@ -187,5 +189,17 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
 
         string finalString = new String(stringChars);
         return finalString;
+    }
+
+    public void OpenCharacterSelect()
+    {
+        lobbyMenu.SetActive(false);
+        charSelectMenu.SetActive(true);
+    }
+
+    public void CloseCharacterSelect()
+    {
+        lobbyMenu.SetActive(true);
+        charSelectMenu.SetActive(false);
     }
 }
