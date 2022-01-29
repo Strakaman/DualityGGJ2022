@@ -4,6 +4,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 
 public class DigiNetManager : MonoBehaviourPunCallbacks
 {
@@ -77,6 +78,13 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log($"successfully joined Room: {PhotonNetwork.CurrentRoom.Name} Count: {PhotonNetwork.CurrentRoom.PlayerCount}");
         PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString(Constants.playerName);
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    Hashtable initialScores = new Hashtable { };
+        //    initialScores.Add(Constants.GREEN_SCORE, 0);
+        //    initialScores.Add(Constants.PURPLE_SCORE, 0);
+        //    PhotonNetwork.CurrentRoom.SetCustomProperties(initialScores);
+        //}
         BuildPlayerListGUI();
     }
 
