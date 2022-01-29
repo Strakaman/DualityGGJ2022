@@ -19,6 +19,7 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
 
     //the charachtercompononet for moving us
     CharacterController cc;
+    DigiPlayerAnimation animatorScript;
 
     public Vector3 velocity;
 
@@ -26,6 +27,7 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
     private void Start()
     {
         cc = GetComponent<CharacterController>();
+        animatorScript = GetComponent<DigiPlayerAnimation>();
         if (!photonView.IsMine)
         {
             GetComponentInChildren<AudioListener>().enabled = false;
@@ -71,11 +73,21 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
 
     void Move()
     {
-        Vector3 move = new Vector3(InputManager.instance.horizontalMovement, 0, InputManager.instance.verticalMovement);
+        float xMovement = InputManager.instance.horizontalMovement;
+        float zMovement = InputManager.instance.verticalMovement;
+        Vector3 move = new Vector3(xMovement, 0, zMovement);
         cc.Move(move * Time.deltaTime * movementSpeed);
 
         velocity.y -= gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
+        if (Mathf.Abs(xMovement) > Mathf.Epsilon || Mathf.Abs(zMovement) > Mathf.Epsilon)
+        {
+            animatorScript.isWalking = true;
+        }
+        else
+        {
+            animatorScript.isWalking = false;
+        }
     }
 
     void LookAt(Vector3 lookPoint)

@@ -18,4 +18,15 @@ public static class Constants
     public const string ENEMY_TEAM = "EnemyTeam";
     public const string GREEN_SCORE = "GreenTeamScore";
     public const string PURPLE_SCORE = "PurpleTeamScore";
+    public static string CharacterHead = "CharacterHead";
+}
+
+public enum Shape
+{
+    Block = 0,
+    Cone = 1,
+    Radio = 2,
+    Star = 3,
+    Round = 4,
+    Random = 999,
 }
