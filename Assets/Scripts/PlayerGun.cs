@@ -9,7 +9,6 @@ public class PlayerGun : MonoBehaviourPunCallbacks
     public ParticleSystem gunParticle;
     public PlayerScore playerScore;
     public DigiPlayer owningPlayer;
-    int playerLayer = 11;
 
     public int scoreIncreaseBase = 1;
     public int scoreIncreaseMultiplier = 2;
@@ -34,6 +33,7 @@ public class PlayerGun : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
+            if (!DigiGameManager.instance.gameStarted || DigiGameManager.instance.gameOver) { return; }
             if (InputManager.instance.fireStarted)
             {
                 photonView.RPC(nameof(RPC_Shoot), RpcTarget.All);

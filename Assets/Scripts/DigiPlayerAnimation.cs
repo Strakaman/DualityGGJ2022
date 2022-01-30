@@ -13,6 +13,8 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
     public bool isWalking;
     public bool isShooting;
     public bool isDancing;
+
+    public List<string> dances = new List<string>() { "Swing", "Macarena", "Salsa", "Twerk", "Breakdance", "Martelo" };
     // Start is called before the first frame update
     void Awake()
     {
@@ -75,7 +77,7 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
 
 
 
-    Coroutine demoAnimationLoopCo;
+    //Coroutine demoAnimationLoopCo;
     public override void OnEnable()
     {
         if (demoMode)
@@ -86,24 +88,19 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
 
     public override void OnDisable()
     {
-        if (demoMode)
-        {
-            if (demoAnimationLoopCo != null)
-            {
-                StopCoroutine(demoAnimationLoopCo);
-            }
-        }
+
     }
 
     public void StartDemoAnimation()
     {
         if (demoMode)
         {
-            demoAnimationLoopCo = StartCoroutine(DemoAnimationLoop());
+            int randIndex = UnityEngine.Random.Range(0, dances.Count);
+            myAnimator.SetTrigger(dances[randIndex]);
         }
     }
 
-    IEnumerator DemoAnimationLoop()
+    /*IEnumerator DemoAnimationLoop()
     {
         Debug.Log("Starting CoLoop");
         while(true)
@@ -112,5 +109,5 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
             isWalking = true;
             yield return new WaitForSeconds(2f);
         }
-    }
+    }*/
 }

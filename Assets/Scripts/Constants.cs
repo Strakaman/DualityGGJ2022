@@ -23,6 +23,12 @@ public static class Constants
 
     public const string WallLayer = "Wall";
     public const string PlayerLayer = "Player";
+
+    public const string Sound_Ready = "Ready";
+    public const string Sound_TimeUp = "TimeUp";
+    public const string Sound_Winner = "Winner";
+    public const string Sound_Green = "Green";
+    public const string Sound_Purple = "Purple";
 }
 
 

@@ -31,6 +31,7 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
 
     public void IncreaseScore(int howMuch)
     {
+        if (!DigiGameManager.instance.gameStarted || DigiGameManager.instance.gameOver) { return; }
         int currentScore = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
         currentScore += howMuch * GetTeamMultiplier((string)PhotonNetwork.LocalPlayer.CustomProperties[Constants.TEAM_KEY]);
         Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, currentScore } };

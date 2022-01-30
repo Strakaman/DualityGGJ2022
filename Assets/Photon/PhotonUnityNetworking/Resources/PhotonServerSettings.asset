@@ -42,6 +42,8 @@ MonoBehaviour:
   - Shoot
   - RPC_Shoot
   - RPC_SetCharacterHead
+  - RPC_PushMatchStats
+  - RPC_SetWinningTeam
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

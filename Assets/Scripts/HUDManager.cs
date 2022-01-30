@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class HUDManager : MonoBehaviourPunCallbacks
 {
@@ -35,7 +36,6 @@ public class HUDManager : MonoBehaviourPunCallbacks
     {
         UpdateTeamScores();
         UpdateModifiers();
-        UpdateTimeLeft();
         UpdatePlayerData();
     }
 
@@ -53,15 +53,20 @@ public class HUDManager : MonoBehaviourPunCallbacks
         purpleTeamMultiplier.text = "x" + DigiTeamsManager.instance.purpleMultiplier.ToString();
     }
 
-    void UpdateTimeLeft()
+    public void UpdateTimeLeft()
     {
-        //get remaining time
-        //set text
+        TimeSpan time = TimeSpan.FromSeconds(DigiGameManager.instance.timeLeft);
+        //here backslash is must to tell that colon is
+        //not the part of format, it just a character that we want in output
+        string str = time.ToString(@"mm\:ss");
+        timeLeft.text = str;
     }
 
     void UpdatePlayerData()
     {
-        int score = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
+        System.Object scoreProp = PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
+        int score = 0;
+        if (scoreProp != null) { score = (int)scoreProp; }
         playerScore.text = score.ToString();
 
         string team = (string)PhotonNetwork.LocalPlayer.CustomProperties[Constants.TEAM_KEY];

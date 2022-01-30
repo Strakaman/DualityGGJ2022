@@ -18,4 +18,10 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
         playerGun.setOwningPlayer(this);
     }
 
+    public void PushMatchStats()
+    {
+
+            Debug.Log("Here are the game stats that I pushed");
+
+    }
 }
