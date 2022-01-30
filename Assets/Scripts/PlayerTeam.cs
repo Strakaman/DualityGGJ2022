@@ -34,6 +34,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
             Hashtable teamToSet = new Hashtable { { Constants.TEAM_KEY, teams[random] } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(teamToSet);
             HUDManager.instance.ChangeTeamColor(colors[random]);
+            photonView.RPC("ChangeTeamIndicatorColor", RpcTarget.All, teams[random]);
             Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is on the {teams[random]}");
         }
     }
@@ -67,6 +68,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(newTeamToSet);
             newTeam = Constants.PURPLE_TEAM;
             HUDManager.instance.ChangeTeamColor(Constants.purpleTeamColor);
+            photonView.RPC("ChangeTeamIndicatorColor", RpcTarget.All, Constants.PURPLE_TEAM);
             timeOnGreenTeam += timeSinceLastSwitch;
         }
         else
@@ -75,6 +77,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(newTeamToSet);
             newTeam = Constants.GREEN_TEAM;
             HUDManager.instance.ChangeTeamColor(Constants.greenTeamColor);
+            photonView.RPC("ChangeTeamIndicatorColor", RpcTarget.All, Constants.GREEN_TEAM);
             timeOnPurpleTeam += timeSinceLastSwitch;
         }
         timeSinceLastSwitch = 0f;
@@ -121,5 +124,18 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
 
         HUDManager.instance.cooldownLayer.SetActive(false);
         canSwitchTeams = true;
+    }
+
+    [PunRPC]
+    void ChangeTeamIndicatorColor(string teamName)
+    {
+        if (teamName == Constants.GREEN_TEAM)
+        {
+            teamIndicator.color = Constants.greenTeamColor;
+        }
+        else if (teamName == Constants.PURPLE_TEAM)
+        {
+            teamIndicator.color = Constants.purpleTeamColor;
+        }
     }
 }
