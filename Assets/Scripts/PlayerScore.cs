@@ -8,7 +8,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
 {
     public int score;
-    public TextMesh scoreDisplay;
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,7 +25,6 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
                 IncreaseScore(1);
             }
         }
-        //scoreDisplay.text = $"Score: {score}";
     }
 
     public void IncreaseScore(int howMuch)
