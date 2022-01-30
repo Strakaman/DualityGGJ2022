@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2f356a0c4856e44ac9fa96df7a4554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSwitchTeams: 1
+  canSwitchTeams: 0
+  cooldownTime: 5
 --- !u!1001 &864755844
 PrefabInstance:
   m_ObjectHideFlags: 0

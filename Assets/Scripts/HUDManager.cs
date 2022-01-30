@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class HUDManager : MonoBehaviour
+public class HUDManager : MonoBehaviourPunCallbacks
 {
     public static HUDManager instance;
 
@@ -30,7 +31,7 @@ public class HUDManager : MonoBehaviour
         playerName.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
-    private void Update()
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         UpdateTeamScores();
         UpdateModifiers();
@@ -69,5 +70,10 @@ public class HUDManager : MonoBehaviour
     public void ChangeTeamColor(Color newColor)
     {
         playerTeamColor.color = newColor;
+    }
+
+    public void ChangeCooldownText(int time)
+    {
+        cooldownTimeLeft.text = time.ToString();
     }
 }
