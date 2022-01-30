@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Realtime;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DigiGameManager : MonoBehaviourPunCallbacks
 {
@@ -22,6 +23,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     void Start()
@@ -58,11 +60,15 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         DigiPlayer[] digiPlayers = FindObjectsOfType<DigiPlayer>();
         foreach (DigiPlayer dp in digiPlayers)
         {
-            playerDictionary.Add(dp.photonView.ControllerActorNr, dp);
-            /*Debug.Log($"Photon View ID: {dp.photonView.ViewID} " +
-                $"Creator Actor Number: {dp.photonView.CreatorActorNr} " +
-                $"Controller Actor Number: {dp.photonView.ControllerActorNr} " +
-                $"Owner Actor Number: {dp.photonView.OwnerActorNr}");*/
+            if (!playerDictionary.ContainsKey(dp.photonView.ControllerActorNr))
+            {
+                //seems like during reload the photon view may get a new ID but playedID will not
+                playerDictionary.Add(dp.photonView.ControllerActorNr, dp);
+                /*Debug.Log($"Photon View ID: {dp.photonView.ViewID} " +
+                    $"Creator Actor Number: {dp.photonView.CreatorActorNr} " +
+                    $"Controller Actor Number: {dp.photonView.ControllerActorNr} " +
+                    $"Owner Actor Number: {dp.photonView.OwnerActorNr}");*/
+            }
         }
         foreach(Player playa in PhotonNetwork.PlayerList)
         {
@@ -218,6 +224,22 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         statusText.gameObject.SetActive(false);
         ResultsPageManager.instance.DisplayResults();
         yield return null;
+    }
+
+    public void TriggerNewMatch()
+    {
+        //photonView.RPC(nameof(RPC_LoadNewMatch), RpcTarget.All);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(1);
+        }
+
+    }
+
+    [PunRPC]
+    public void RPC_LoadNewMatch()
+    {
+        SceneManager.LoadScene(1);
     }
     #endregion
 }

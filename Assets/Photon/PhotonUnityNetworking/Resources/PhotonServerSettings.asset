@@ -45,6 +45,7 @@ MonoBehaviour:
   - RPC_PushMatchStats
   - RPC_SetWinningTeam
   - ChangeTeamIndicatorColor
+  - RPC_LoadNewMatch
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

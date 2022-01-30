@@ -30,7 +30,7 @@ public class FirstPersonController : MonoBehaviourPunCallbacks
         animatorScript = GetComponent<DigiPlayerAnimation>();
         if (!photonView.IsMine)
         {
-            GetComponentInChildren<AudioListener>().enabled = false;
+            GetComponent<AudioListener>().enabled = false;
         }
     }
 

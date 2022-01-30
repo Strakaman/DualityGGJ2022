@@ -4886,7 +4886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe9e9c1607493741b984ccfbedde64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8831217273865095171, guid: f78ea11f9adbbe64b99a7cbb2aba8d0f, type: 3}
+  playerPrefab: {fileID: 409847171446337696, guid: 6ee089e1a9f772944814fb70ca297853, type: 3}
   statusText: {fileID: 1683009243}
   timeUp: 0
   gameStarted: 0

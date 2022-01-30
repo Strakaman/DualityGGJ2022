@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
@@ -26,11 +25,12 @@ public class ResultsPageManager : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            rematchButton.gameObject.SetActive(true);
             rematchButton.interactable = true;
         }
         else
         {
-            rematchButton.interactable = false;
+            rematchButton.gameObject.SetActive(false);
         }
     }
     public void DisplayResults()
@@ -75,6 +75,6 @@ public class ResultsPageManager : MonoBehaviour
 
     public void OnClick_PlayAgain()
     {
-        SceneManager.LoadScene(1);
+        DigiGameManager.instance.TriggerNewMatch();
     }
 }

@@ -60,7 +60,7 @@ public class AudioManager : MonoBehaviour
 	{	
 		if (playerT != null)
 		{
-			audioListener.position = playerT.position;
+			//audioListener.position = playerT.position; //don't need this as audio listener is already on the player
 		}
 	}
 

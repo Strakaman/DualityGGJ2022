@@ -13,7 +13,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
     public Coroutine cooldownCoroutine = null;
     public int cooldownTime = 5;
     public Image teamIndicator;
-
+    public SkinnedMeshRenderer playerSkinRenderer;
     public float timeSinceLastSwitch { get; private set; }
     public int amountSwitched { get; private set; }
     public float timeOnGreenTeam { get; private set; }
@@ -132,10 +132,12 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
         if (teamName == Constants.GREEN_TEAM)
         {
             teamIndicator.color = Constants.greenTeamColor;
+            playerSkinRenderer.materials[0].color = Constants.greenTeamColor;
         }
         else if (teamName == Constants.PURPLE_TEAM)
         {
             teamIndicator.color = Constants.purpleTeamColor;
+            playerSkinRenderer.materials[0].color = Constants.purpleTeamColor;
         }
     }
 }
