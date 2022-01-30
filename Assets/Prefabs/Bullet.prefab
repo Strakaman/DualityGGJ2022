@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2970176775022295074}
   - component: {fileID: 2970176775022295073}
   - component: {fileID: 2970176775022295072}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ MonoBehaviour:
   particleSystem: {fileID: 2970176775165715330}
   whoDoIHit:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2560
   trailRenderer: {fileID: 2970176775239291071}
   rigidbody: {fileID: 2970176775022295073}
   demoMode: 0
@@ -84,7 +84,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2970176775100396893
 GameObject:
@@ -97,8 +97,7 @@ GameObject:
   - component: {fileID: 2970176775100396894}
   - component: {fileID: 2970176775100396891}
   - component: {fileID: 2970176775100396890}
-  - component: {fileID: 2970176775100396889}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,19 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2970176775100396889
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2970176775100396893}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2970176775165715335
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +178,7 @@ GameObject:
   - component: {fileID: 2970176775165715328}
   - component: {fileID: 2970176775165715330}
   - component: {fileID: 2970176775165715329}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,7 +4989,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2970176775239291070}
   - component: {fileID: 2970176775239291071}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5019,7 +5005,7 @@ Transform:
   m_GameObject: {fileID: 2970176775239291069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 2970176775022295079}
   m_RootOrder: 1
@@ -5065,10 +5051,10 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
