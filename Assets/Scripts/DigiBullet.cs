@@ -67,6 +67,7 @@ public class DigiBullet : MonoBehaviour
                 if (bulletOwner.photonView.IsMine)
                 {
                     bulletOwner.playerScore.IncreaseScore(1);
+                    bulletOwner.EnemyHit();
                 }
                 Destroy(this.gameObject);
             }

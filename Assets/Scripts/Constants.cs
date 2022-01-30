@@ -16,6 +16,11 @@ public static class Constants
     public const string SCORE_KEY = "Score";
     public const string GREEN_SCORE_KEY = "GreenTeamScore";
     public const string PURPLE_SCORE_KEY = "PurpleTeamScore";
+    public const string ENEMIES_SHOT_KEY = "EnemiesShot";
+    public const string NUM_SWITCHES_KEY = "NumSwitches";
+    public const string TIME_GREEN_KEY = "TimeGreen";
+    public const string TIME_PURPLE_KEY = "TimePurple";
+
     public const string GREEN_TEAM = "GreenTeam";
     public const string PURPLE_TEAM = "PurpleTeam";
     public const string ENEMY_TEAM = "EnemyTeam";

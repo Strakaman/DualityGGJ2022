@@ -12,7 +12,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     public Dictionary<int, DigiPlayer> playerDictionary;
     public static DigiGameManager instance;
 
-    int matchTimeinSeconds = 5;
+    int matchTimeinSeconds = 180;
     public int timeLeft { get; private set; }
     public string WinningTeam { get; private set; }
     public bool timeUp = false;
@@ -214,6 +214,9 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
             AudioManager.instance.PlaySound2D(Constants.Sound_Purple);
 
         }
+        yield return new WaitForSeconds(2f);
+        statusText.gameObject.SetActive(false);
+        ResultsPageManager.instance.DisplayResults();
         yield return null;
     }
     #endregion
