@@ -34,14 +34,14 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         foreach (DigiPlayer dp in digiPlayers)
         {
             playerDictionary.Add(dp.photonView.ViewID, dp);
-            Debug.Log($"Photon View ID: {dp.photonView.ViewID} " +
+            /*Debug.Log($"Photon View ID: {dp.photonView.ViewID} " +
                 $"Creator Actor Number: {dp.photonView.CreatorActorNr} " +
                 $"Controller Actor Number: {dp.photonView.ControllerActorNr} " +
-                $"Owner Actor Number: {dp.photonView.OwnerActorNr}");
+                $"Owner Actor Number: {dp.photonView.OwnerActorNr}");*/
         }
         foreach(Player playa in PhotonNetwork.PlayerList)
         {
-            Debug.Log($"Digital Player {playa.NickName} ID: {playa.ActorNumber}");
+            //Debug.Log($"Digital Player {playa.NickName} ID: {playa.ActorNumber}");
         }
     }
 

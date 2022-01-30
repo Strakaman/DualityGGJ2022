@@ -20,7 +20,11 @@ public static class Constants
     public const string PURPLE_TEAM = "PurpleTeam";
     public const string ENEMY_TEAM = "EnemyTeam";
     public static string CharacterHead = "CharacterHead";
+
+    public const string WallLayer = "Wall";
+    public const string PlayerLayer = "Player";
 }
+
 
 public enum Shape
 {

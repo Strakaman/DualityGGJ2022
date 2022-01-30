@@ -311,6 +311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DigiPlayer Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2699541615817244657, guid: 5d353d131e213f94fb9639806519a1fa, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2699541615817244671, guid: 5d353d131e213f94fb9639806519a1fa, type: 3}
       propertyPath: m_RootOrder
       value: 0

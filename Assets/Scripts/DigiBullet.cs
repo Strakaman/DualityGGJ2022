@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,25 @@ public class DigiBullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other == null) { return; }
-        GameObject go = other.gameObject;
-        Debug.Log($"Hit: {go.name} Layer Mask: {go.layer}");
+        GameObject victimeGameObject = other.gameObject;
+        Debug.Log($"Hit: {victimeGameObject.name} Layer Mask: {LayerMask.LayerToName(victimeGameObject.layer)}");
+        if (victimeGameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            Destroy(this.gameObject);
+        }
+        else if (victimeGameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            DigiPlayer playerVictim = victimeGameObject.GetComponent<DigiPlayer>();
+            if (playerVictim == null) { bulletOwner.playerScore.IncreaseScore(1); return; } //this is for fake wall, should not actually happen
+            string team = DigiGameManager.instance.GetPlayerTeam(playerVictim.photonView.ViewID);
+            if (!ownerTeam.Equals(team)) //owner team of the bullet is different than player that got hit
+            {
+                if (bulletOwner.photonView.IsMine)
+                {
+                    bulletOwner.playerScore.IncreaseScore(1);
+                }
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

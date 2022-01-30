@@ -12,7 +12,6 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
     public PlayerScore playerScore;
     public DigiPlayerAnimation playerAnimation;
     public PlayerTeam playerTeam;
-    public Player photonPlayer;
 
     private void Awake()
     {
