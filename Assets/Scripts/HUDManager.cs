@@ -49,9 +49,8 @@ public class HUDManager : MonoBehaviourPunCallbacks
 
     void UpdateModifiers()
     {
-        //get green modifier
-        //get purple modifier
-        //set text for both
+        greenTeamMultiplier.text = "x" + DigiTeamsManager.instance.greenMultiplier.ToString();
+        purpleTeamMultiplier.text = "x" + DigiTeamsManager.instance.purpleMultiplier.ToString();
     }
 
     void UpdateTimeLeft()
@@ -64,7 +63,20 @@ public class HUDManager : MonoBehaviourPunCallbacks
     {
         int score = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
         playerScore.text = score.ToString();
-        //update player multiplier
+
+        string team = (string)PhotonNetwork.LocalPlayer.CustomProperties[Constants.TEAM_KEY];
+        if (team == Constants.GREEN_TEAM)
+        {
+            playerMultiplier.text = "x" + DigiTeamsManager.instance.greenMultiplier.ToString();
+        }
+        else if (team == Constants.PURPLE_TEAM)
+        {
+            playerMultiplier.text = "x" + DigiTeamsManager.instance.purpleMultiplier.ToString();
+        }
+        else
+        {
+            playerMultiplier.text = string.Empty;
+        }
     }
 
     public void ChangeTeamColor(Color newColor)

@@ -31,12 +31,27 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
 
     public void IncreaseScore(int howMuch)
     {
-        //score += howMuch;
         int currentScore = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
-        currentScore += howMuch;
+        currentScore += howMuch * GetTeamMultiplier((string)PhotonNetwork.LocalPlayer.CustomProperties[Constants.TEAM_KEY]);
         Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, currentScore } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(scoreToSet);
     }
+
+    private int GetTeamMultiplier(string team)
+    {
+        int multiplier = 0;
+        if (team == Constants.GREEN_TEAM)
+        {
+            multiplier = DigiTeamsManager.instance.greenMultiplier;
+        }
+        else if (team == Constants.PURPLE_TEAM)
+        {
+            multiplier = DigiTeamsManager.instance.purpleMultiplier;
+        }
+
+        return multiplier;
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
