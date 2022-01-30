@@ -12,7 +12,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     public Dictionary<int, DigiPlayer> playerDictionary;
     public static DigiGameManager instance;
 
-    int matchTimeinSeconds = 180;
+    int matchTimeinSeconds = 5;
     public int timeLeft { get; private set; }
     public string WinningTeam { get; private set; }
     public bool timeUp = false;

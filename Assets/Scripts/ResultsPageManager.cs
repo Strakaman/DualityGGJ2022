@@ -11,8 +11,8 @@ public class ResultsPageManager : MonoBehaviour
 {
     public static ResultsPageManager instance;
     public ResultsTemplate resultsTemplatePrefab;
-    public Transform greenGridHolder;
-    public Transform purpleGridHolder;
+    public RectTransform greenGridHolder;
+    public RectTransform purpleGridHolder;
     public Button rematchButton;
     public GameObject HUDContainer;
     public GameObject resultsGUIContainer;
@@ -55,12 +55,14 @@ public class ResultsPageManager : MonoBehaviour
             {
                 //rt.transform.parent = greenGridHolder;
                 rt.transform.SetParent(greenGridHolder);
+                rt.transform.localScale = greenGridHolder.localScale;
             }
             else
             {
                 //rt.transform.parent = purpleGridHolder;
                 rt.transform.SetParent(purpleGridHolder);
-
+                rt.transform.localScale = purpleGridHolder.localScale;
+                Debug.Log($"The size delta is {purpleGridHolder.sizeDelta}");
             }
         }
     }
