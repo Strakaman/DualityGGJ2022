@@ -10,8 +10,8 @@ public static class Constants
 {
     public static string sessionName = "SessionName";
     public static string playerName = "PlayerName";
-    public static Color greenTeamColor = new Color(21, 255, 0);
-    public static Color purpleTeamColor = new Color(196, 0, 255);
+    public static Color greenTeamColor = new Color(0.082f, 1f, 0);
+    public static Color purpleTeamColor = new Color(0.769f, 0, 1f);
     public const string TEAM_KEY = "Team";
     public const string SCORE_KEY = "Score";
     public const string GREEN_SCORE_KEY = "GreenTeamScore";

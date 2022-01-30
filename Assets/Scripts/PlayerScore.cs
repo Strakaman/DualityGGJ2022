@@ -10,9 +10,10 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
     public int score;
     public TextMesh scoreDisplay;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        score = 0;
+        Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, 0 } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(scoreToSet);
     }
 
     // Update is called once per frame
@@ -25,16 +26,16 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
                 IncreaseScore(1);
             }
         }
-        scoreDisplay.text = $"Score: {score}";
+        //scoreDisplay.text = $"Score: {score}";
     }
 
     public void IncreaseScore(int howMuch)
     {
-        score += howMuch;
-        //int currentScore = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
-        //currentScore += howMuch;
-        //Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, currentScore } };
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(scoreToSet);
+        //score += howMuch;
+        int currentScore = (int)PhotonNetwork.LocalPlayer.CustomProperties[Constants.SCORE_KEY];
+        currentScore += howMuch;
+        Hashtable scoreToSet = new Hashtable { { Constants.SCORE_KEY, currentScore } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(scoreToSet);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

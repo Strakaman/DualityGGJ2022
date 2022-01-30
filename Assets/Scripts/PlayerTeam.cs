@@ -46,12 +46,14 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
             Hashtable newTeamToSet = new Hashtable { { Constants.TEAM_KEY, Constants.PURPLE_TEAM } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(newTeamToSet);
             newTeam = Constants.PURPLE_TEAM;
+            HUDManager.instance.ChangeTeamColor(Constants.purpleTeamColor);
         }
         else
         {
             Hashtable newTeamToSet = new Hashtable { { Constants.TEAM_KEY, Constants.GREEN_TEAM } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(newTeamToSet);
             newTeam = Constants.GREEN_TEAM;
+            HUDManager.instance.ChangeTeamColor(Constants.greenTeamColor);
         }
 
         Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} Team has been set from {currentTeam} to {newTeam}");

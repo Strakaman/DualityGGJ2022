@@ -19,7 +19,8 @@ public class DigiTeamsManager : MonoBehaviour
         int totalScore = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            if ((string)player.CustomProperties[Constants.TEAM_KEY] == team)
+            string playerTeam = (string)player.CustomProperties[Constants.TEAM_KEY];
+            if (playerTeam == team)
             {
                 totalScore += (int)player.CustomProperties[Constants.SCORE_KEY];
             }
