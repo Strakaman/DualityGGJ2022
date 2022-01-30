@@ -61,7 +61,7 @@ public class DigiBullet : MonoBehaviour
         {
             DigiPlayer playerVictim = victimeGameObject.GetComponent<DigiPlayer>();
             if (playerVictim == null) { bulletOwner.playerScore.IncreaseScore(1); return; } //this is for fake wall, should not actually happen
-            string team = DigiGameManager.instance.GetPlayerTeam(playerVictim.photonView.ViewID);
+            string team = DigiGameManager.instance.GetPlayerTeam(playerVictim.photonView.ControllerActorNr);
             if (!ownerTeam.Equals(team)) //owner team of the bullet is different than player that got hit
             {
                 if (bulletOwner.photonView.IsMine)

@@ -58,7 +58,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         DigiPlayer[] digiPlayers = FindObjectsOfType<DigiPlayer>();
         foreach (DigiPlayer dp in digiPlayers)
         {
-            playerDictionary.Add(dp.photonView.ViewID, dp);
+            playerDictionary.Add(dp.photonView.ControllerActorNr, dp);
             /*Debug.Log($"Photon View ID: {dp.photonView.ViewID} " +
                 $"Creator Actor Number: {dp.photonView.CreatorActorNr} " +
                 $"Controller Actor Number: {dp.photonView.ControllerActorNr} " +

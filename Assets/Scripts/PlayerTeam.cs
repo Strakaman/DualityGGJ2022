@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -11,6 +12,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
     public bool canSwitchTeams = false;
     public Coroutine cooldownCoroutine = null;
     public int cooldownTime = 5;
+    public Image teamIndicator;
 
     public float timeSinceLastSwitch { get; private set; }
     public int amountSwitched { get; private set; }

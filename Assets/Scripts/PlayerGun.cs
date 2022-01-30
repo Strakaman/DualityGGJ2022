@@ -59,7 +59,7 @@ public class PlayerGun : MonoBehaviourPunCallbacks
         }*/
         DigiBullet bullet = Instantiate<DigiBullet>(bulletPrefab, muzzleTransform.position, Quaternion.identity);
         Vector3 bulletVelocity = muzzleTransform.forward * bulletTimeJKSpeed;
-        bullet.SetBulletProperties(DigiGameManager.instance.GetPlayerTeam(photonView.ViewID), owningPlayer, bulletVelocity);
+        bullet.SetBulletProperties(DigiGameManager.instance.GetPlayerTeam(photonView.ControllerActorNr), owningPlayer, bulletVelocity);
         animatorScript.isShooting = true;
 
     }

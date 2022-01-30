@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -13,6 +14,7 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
     public PlayerScore playerScore;
     public DigiPlayerAnimation playerAnimation;
     public PlayerTeam playerTeam;
+    public Image playerIndicator;
 
     private int enemiesShot;
     private void Awake()
@@ -23,6 +25,10 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
     private void Start()
     {
         enemiesShot = 0;
+        if (!photonView.IsMine)
+        {
+            playerIndicator.enabled = false;
+        }
     }
 
     public void EnemyHit()
