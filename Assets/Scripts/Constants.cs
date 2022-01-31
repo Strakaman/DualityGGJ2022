@@ -20,6 +20,7 @@ public static class Constants
     public const string NUM_SWITCHES_KEY = "NumSwitches";
     public const string TIME_GREEN_KEY = "TimeGreen";
     public const string TIME_PURPLE_KEY = "TimePurple";
+    public const string WINNING_TEAM_KEY = "WinningTeam";
 
     public const string GREEN_TEAM = "GreenTeam";
     public const string PURPLE_TEAM = "PurpleTeam";

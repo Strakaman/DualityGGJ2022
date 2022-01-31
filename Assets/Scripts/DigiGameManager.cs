@@ -16,7 +16,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
 
     int matchTimeinSeconds = 180;
     public int timeLeft { get; private set; }
-    public string WinningTeam { get; private set; }
+    //public string WinningTeam { get; private set; }
     public bool timeUp = false;
     public bool gameStarted = false;
     public bool gameOver = false;
@@ -96,7 +96,13 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
 
     public Player GetPlayer(int photonViewID)
     {
-        DigiPlayer dp = playerDictionary[photonViewID];
+        DigiPlayer dp;
+        try { dp = playerDictionary[photonViewID]; }
+        catch (KeyNotFoundException)
+        {
+            MakeDigiPlayerDictionary();
+            dp = playerDictionary[photonViewID];
+        }
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             if (p.ActorNumber == dp.photonView.ControllerActorNr)
@@ -202,13 +208,15 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         }
 
         //sets the winning team on all clients so that each local player can consume result
-        photonView.RPC(nameof(RPC_SetWinningTeam), RpcTarget.All, resultingWinner);
+        //photonView.RPC(nameof(RPC_SetWinningTeam), RpcTarget.All, resultingWinner);
+        Hashtable winningHash = new Hashtable { { Constants.WINNING_TEAM_KEY, resultingWinner } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(winningHash);
     }
 
     [PunRPC]
     void RPC_SetWinningTeam(string winningTeamResult)
     {
-        WinningTeam = winningTeamResult;
+        //WinningTeam = winningTeamResult;
     }
     IEnumerator GameInit()
     {
@@ -249,7 +257,8 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         AudioManager.instance.PlaySound2D(Constants.Sound_Winner);
         statusText.color = Color.white;
         yield return new WaitForSeconds(2f);
-        if (WinningTeam.Equals(Constants.GREEN_TEAM))
+        string winningTeam = (string)PhotonNetwork.CurrentRoom.CustomProperties[Constants.WINNING_TEAM_KEY];
+        if (winningTeam.Equals(Constants.GREEN_TEAM))
         {
             statusText.text = "Green Team!";
             statusText.color = Constants.greenTeamColor;
