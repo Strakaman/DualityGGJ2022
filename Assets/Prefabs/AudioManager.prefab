@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4639203371088736200}
   - component: {fileID: 6671254933181639545}
   - component: {fileID: 6693911462994497273}
+  - component: {fileID: 2948227644303674137}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolumePercent: 1
   sfxVolumePercent: 0.2
-  musicVolumePercent: 1
+  musicVolumePercent: 0.3
   voiceVolumePercent: 1
 --- !u!114 &6693911462994497273
 MonoBehaviour:
@@ -95,3 +96,20 @@ MonoBehaviour:
     group:
     - {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
     - {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
+--- !u!114 &2948227644303674137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976858578446748118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8f5dd40f88b8740805b023a50e02ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songNumber: 0
+  lobbyMusic: {fileID: 8300000, guid: 093af25cb806ac0449229967fe6b2113, type: 3}
+  matchMusic:
+  - {fileID: 8300000, guid: 61439b796372a394d8575db5919c9a46, type: 3}
+  - {fileID: 8300000, guid: bd1db8d79bafb1547af7fee3b0b1e032, type: 3}
