@@ -50,9 +50,9 @@ public class AudioManager : MonoBehaviour
 			audioListener = FindObjectOfType<AudioListener>().transform;
 			CacheMyPlayerTransform();
 			masterVolumePercent = PlayerPrefs.GetFloat("master vol", 1);
-			sfxVolumePercent = PlayerPrefs.GetFloat("sfx vol", .2f);
+			//sfxVolumePercent = .2f;//PlayerPrefs.GetFloat("sfx vol", .2f);
 			voiceVolumePercent = PlayerPrefs.GetFloat("voice vol", 1);
-			musicVolumePercent = PlayerPrefs.GetFloat("music vol", 1);
+			//musicVolumePercent = .5f;//PlayerPrefs.GetFloat("music vol", .5f);
 		}
 	}
 
@@ -104,10 +104,11 @@ public class AudioManager : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
-	public void PlayMusic(AudioClip clip, float fadeDuration = 1)
+	public void PlayMusic(AudioClip clip, float fadeDuration = 2)
 	{
 		activeMusicSourceIndex = 1 - activeMusicSourceIndex;
 		musicSources[activeMusicSourceIndex].clip = clip;
+		musicSources[activeMusicSourceIndex].loop = true;
 		musicSources[activeMusicSourceIndex].Play();
 
 		StartCoroutine(AnimateMusicCrossfade(fadeDuration));
