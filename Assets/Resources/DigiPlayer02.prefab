@@ -172,8 +172,8 @@ MonoBehaviour:
   - {fileID: 9003977948965798559}
   - {fileID: 9003977948555446969}
   - {fileID: 9003977947724685988}
-  - {fileID: 9003977949104722776}
   - {fileID: 9003977949568954728}
+  - {fileID: 9003977949104722776}
   characterHeadSelectionIndex: 0
   demoMode: 0
   isWalking: 0

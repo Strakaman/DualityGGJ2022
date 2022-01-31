@@ -29,6 +29,10 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
         {
             playerIndicator.enabled = false;
         }
+        if (photonView.IsMine)
+        {
+            CameraFollow.instance.TellCameraToFollowMe(transform);
+        }
     }
 
     public void EnemyHit()
