@@ -89,8 +89,8 @@ public class HUDManager : MonoBehaviourPunCallbacks
         playerTeamColor.color = newColor;
     }
 
-    public void ChangeCooldownText(int time)
+    public void ChangeCooldownText(string displayText)
     {
-        cooldownTimeLeft.text = time.ToString();
+        cooldownTimeLeft.text = displayText;
     }
 }

@@ -9,7 +9,7 @@ using Photon.Realtime;
 
 public class PlayerTeam : MonoBehaviourPunCallbacks
 {
-    public bool canSwitchTeams = false;
+    public bool switchOnCooldown = true;
     public Coroutine cooldownCoroutine = null;
     public int cooldownTime = 5;
     public Image teamIndicator;
@@ -19,23 +19,26 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
     public float timeOnGreenTeam { get; private set; }
     public float timeOnPurpleTeam { get; private set; }
 
+    public int minNumOfPlayersForTeam { get; private set; }
+
     private void Start()
     {
         timeSinceLastSwitch = 0f;
         amountSwitched = 0;
         timeOnGreenTeam = 0f;
         timeOnPurpleTeam = 0f;
+        minNumOfPlayersForTeam = 1;
         if (photonView.IsMine)
         {
-            canSwitchTeams = true;
-            int random = Random.Range(0, 2);
+            switchOnCooldown = false;
+            /*int random = Random.Range(0, 2);
             string[] teams = new string[] { Constants.GREEN_TEAM, Constants.PURPLE_TEAM };
             Color[] colors = new Color[] { Constants.greenTeamColor, Constants.purpleTeamColor };
             Hashtable teamToSet = new Hashtable { { Constants.TEAM_KEY, teams[random] } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(teamToSet);
             HUDManager.instance.ChangeTeamColor(colors[random]);
             photonView.RPC("ChangeTeamIndicatorColor", RpcTarget.All, teams[random]);
-            Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is on the {teams[random]}");
+            Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is on the {teams[random]}");*/
         }
     }
     private void Update()
@@ -46,20 +49,28 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
         }
         if (photonView.IsMine)
         {
-            if (InputManager.instance.switchTeamsStarted)
+            if (!DigiGameManager.instance.gameStarted || DigiGameManager.instance.gameOver)
             {
-                if (canSwitchTeams)
+                return;
+            }
+            if (CanSwitchTeams())
+            {
+                if (InputManager.instance.switchTeamsStarted)
                 {
+
                     SwitchTeams();
                 }
             }
-
+            else if (!switchOnCooldown)
+            {
+                UpdateSwitchTeamsHUD(false, "");
+            }
             //DebugPrintAllPlayerTeams();
         }
     }
     public void SwitchTeams()
     {
-        canSwitchTeams = false;
+        switchOnCooldown = true;
         string currentTeam = (string)PhotonNetwork.LocalPlayer.CustomProperties[Constants.TEAM_KEY];
         string newTeam = string.Empty;
         if (currentTeam == Constants.GREEN_TEAM)
@@ -84,6 +95,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
         amountSwitched++;
         Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} Team has been set from {currentTeam} to {newTeam}");
         cooldownCoroutine = StartCoroutine(Cooldown(cooldownTime));
+     
     }
 
     /// <summary>
@@ -114,18 +126,64 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
     IEnumerator Cooldown(int time)
     {
         int timeLeft = time;
-        HUDManager.instance.cooldownLayer.SetActive(true);
+        UpdateSwitchTeamsHUD(false, timeLeft.ToString());
         while (timeLeft > 0)
         {
-            HUDManager.instance.ChangeCooldownText(timeLeft);
+            UpdateSwitchTeamsHUD(false, timeLeft.ToString());
             yield return new WaitForSeconds(1);
             timeLeft -= 1;
         }
 
-        HUDManager.instance.cooldownLayer.SetActive(false);
-        canSwitchTeams = true;
+        UpdateSwitchTeamsHUD(true, "");
+        switchOnCooldown = false;
     }
 
+    public void UpdateSwitchTeamsHUD(bool canSwitch, string text)
+    {
+        HUDManager.instance.cooldownLayer.SetActive(!canSwitch);
+        HUDManager.instance.ChangeCooldownText(text);
+    }
+    public bool CanSwitchTeams()
+    {
+        if (switchOnCooldown) { return false; }
+        if (!MinSwitchCriteriaMet()) { return false; }
+        return true;
+    }
+
+    public bool MinSwitchCriteriaMet()
+    {
+        string teamName = DigiGameManager.instance.GetPlayerTeam(photonView.ControllerActorNr);
+        int numOfPplOnTeam = 0;
+        if (PhotonNetwork.PlayerList.Length == 1) { return true; } //for solo testing 
+        foreach(Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.CustomProperties[Constants.TEAM_KEY].Equals(teamName));
+            {
+                numOfPplOnTeam++;
+            }
+        }
+        if (numOfPplOnTeam > minNumOfPlayersForTeam)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+
+        if (changedProps.ContainsKey(Constants.TEAM_KEY))
+        {
+            string newTeam = (string)changedProps[Constants.TEAM_KEY];
+            if (targetPlayer.ActorNumber == photonView.ControllerActorNr) //means its mine
+            {
+                HUDManager.instance.ChangeTeamColor(Constants.GetTeamColor(newTeam));
+                photonView.RPC("ChangeTeamIndicatorColor", RpcTarget.All, newTeam);
+            }
+            //ChangeTeamIndicatorColor(newTeam);
+        }
+
+    }
     [PunRPC]
     void ChangeTeamIndicatorColor(string teamName)
     {

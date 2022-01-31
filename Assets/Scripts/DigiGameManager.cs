@@ -5,6 +5,7 @@ using Photon.Realtime;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class DigiGameManager : MonoBehaviourPunCallbacks
 {
@@ -121,10 +122,44 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         timeUp = false;
         gameOver = false;
         timeLeft = matchTimeinSeconds;
+        if(PhotonNetwork.IsMasterClient)
+        {
+            SplitTeams();
+        }
         StartCoroutine(GameInit());
 
     }
 
+    void SplitTeams()
+    {
+        int halfPlayerCount = PhotonNetwork.PlayerList.Length / 2;
+        List<int> playerIndexList = new List<int>();
+        for (int i = 0; i < halfPlayerCount; i++)
+        {
+            int index = Random.Range(0, halfPlayerCount);
+            if (playerIndexList.Contains(index))
+            {
+                continue;
+            }
+            else
+            {
+                playerIndexList.Add(index);
+            }
+        }
+        for(int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            Hashtable teamToSet;
+            if (playerIndexList.Contains(i))
+            {
+                teamToSet= new Hashtable { { Constants.TEAM_KEY, Constants.GREEN_TEAM } };
+            }
+            else
+            {
+                teamToSet = new Hashtable { { Constants.TEAM_KEY, Constants.PURPLE_TEAM } };
+            }
+            PhotonNetwork.PlayerList[i].SetCustomProperties(teamToSet);
+        }
+    }
     void GameOver()
     {
         gameOver = true;

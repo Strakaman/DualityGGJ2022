@@ -34,6 +34,22 @@ public static class Constants
     public const string Sound_Winner = "Winner";
     public const string Sound_Green = "Green";
     public const string Sound_Purple = "Purple";
+
+    public static Color GetTeamColor(string teamName)
+    {
+        if (teamName.Equals(GREEN_TEAM))
+        {
+            return greenTeamColor;
+        }
+        else if (teamName.Equals(PURPLE_TEAM))
+        {
+            return purpleTeamColor;
+        }
+        else
+        {
+            return Color.white;
+        }
+    }
 }
 
 

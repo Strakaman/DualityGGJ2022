@@ -28,6 +28,7 @@ public class DigiTeamsManager : MonoBehaviourPunCallbacks
     public int GetTeamScore(string team)
     {
         int totalScore = 0;
+        if (!DigiGameManager.instance.gameStarted) { return 0; }
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             string playerTeam = (string)player.CustomProperties[Constants.TEAM_KEY];
