@@ -13,9 +13,12 @@ public class PlayerGun : MonoBehaviourPunCallbacks
     public int scoreIncreaseBase = 1;
     public int scoreIncreaseMultiplier = 2;
     DigiPlayerAnimation animatorScript;
+    public float shootingAnimationCooldown = .3f;
+    float shootingAnimationResetDuration;
 
     void Start()
     {
+        shootingAnimationResetDuration = 0f;
         if (playerScore == null)
         {
             playerScore = GetComponent<PlayerScore>();
@@ -38,8 +41,10 @@ public class PlayerGun : MonoBehaviourPunCallbacks
             {
                 photonView.RPC(nameof(RPC_Shoot), RpcTarget.All);
             }
-            else
+            shootingAnimationResetDuration += Time.deltaTime;
+            if (shootingAnimationResetDuration > shootingAnimationCooldown)
             {
+                RefreshShootingAnimationCooldown();
                 animatorScript.isShooting = false;
             }
         }
@@ -61,6 +66,11 @@ public class PlayerGun : MonoBehaviourPunCallbacks
         Vector3 bulletVelocity = muzzleTransform.forward * bulletTimeJKSpeed;
         bullet.SetBulletProperties(DigiGameManager.instance.GetPlayerTeam(photonView.ControllerActorNr), owningPlayer, bulletVelocity);
         animatorScript.isShooting = true;
+        RefreshShootingAnimationCooldown();
+    }
 
+    void RefreshShootingAnimationCooldown()
+    {
+        shootingAnimationResetDuration = 0;
     }
 }

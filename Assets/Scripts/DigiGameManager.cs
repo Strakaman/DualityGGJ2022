@@ -13,7 +13,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     public Dictionary<int, DigiPlayer> playerDictionary;
     public static DigiGameManager instance;
 
-    int matchTimeinSeconds = 5;
+    int matchTimeinSeconds = 180;
     public int timeLeft { get; private set; }
     public string WinningTeam { get; private set; }
     public bool timeUp = false;
@@ -92,6 +92,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         }
         return null;
     }
+
     public Player GetPlayer(int photonViewID)
     {
         DigiPlayer dp = playerDictionary[photonViewID];
@@ -234,6 +235,15 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel(1);
         }
 
+    }
+    public void QuitSelected()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel(0);
     }
 
     [PunRPC]

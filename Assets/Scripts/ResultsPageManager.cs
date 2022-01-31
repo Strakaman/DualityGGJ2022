@@ -69,8 +69,7 @@ public class ResultsPageManager : MonoBehaviour
 
     public void OnClick_Quit()
     {
-        //PhotonNetwork.LeaveRoom();
-        Application.Quit();
+        DigiGameManager.instance.QuitSelected();
     }
 
     public void OnClick_PlayAgain()

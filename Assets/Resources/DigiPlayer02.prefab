@@ -65,6 +65,7 @@ MonoBehaviour:
   owningPlayer: {fileID: 0}
   scoreIncreaseBase: 1
   scoreIncreaseMultiplier: 2
+  shootingAnimationCooldown: 0.2
 --- !u!143 &409847171446337697
 CharacterController:
   m_ObjectHideFlags: 0
