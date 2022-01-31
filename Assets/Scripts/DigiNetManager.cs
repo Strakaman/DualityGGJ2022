@@ -36,8 +36,6 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         Debug.Log($"Lobby Name: {potentialplayerName}");
         joinLobbyButton.interactable = false;
         startMatchButton.interactable = false;
-        joinRandomLobbyButton.interactable = true;
-        createroomButton.interactable = true;
         DigiConnect();
     }
 
@@ -60,6 +58,12 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         OnClickCreate();
     }
 
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        joinRandomLobbyButton.interactable = true;
+        createroomButton.interactable = true;
+    }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
