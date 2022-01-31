@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2794118454657310822}
   - component: {fileID: 4911362947848670317}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hat_building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 1916963225046715383}
   - component: {fileID: 1207131795529417080}
   - component: {fileID: 2769690026047514234}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
