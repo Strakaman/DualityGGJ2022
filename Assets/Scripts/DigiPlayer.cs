@@ -56,4 +56,34 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
         Debug.Log("Here are the game stats that I pushed");
 
     }
+
+    public void MoveToGreenSpot(int spawnIndex)
+    {
+        photonView.RPC(nameof(MoveGreenTransform), RpcTarget.All, spawnIndex);
+    }
+
+    public void MoveToPurpleSpot(int spawnIndex)
+    {
+        photonView.RPC(nameof(MovePurpleTransform), RpcTarget.All, spawnIndex);
+    }
+
+    [PunRPC]
+    void MoveGreenTransform(int spawnIndex)
+    {
+        gameObject.GetComponent<CharacterController>().enabled = false;
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is at {gameObject.transform.position} and going to {SpawnManager.instance.greenSpawns[spawnIndex].position}");
+        gameObject.transform.position = SpawnManager.instance.greenSpawns[spawnIndex].position;
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is at {gameObject.transform.position}");
+        gameObject.GetComponent<CharacterController>().enabled = true;
+    }
+
+    [PunRPC]
+    void MovePurpleTransform(int spawnIndex)
+    {
+        gameObject.GetComponent<CharacterController>().enabled = false;
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is at {gameObject.transform.position} and going to {SpawnManager.instance.purpleSpawns[spawnIndex].position}");
+        gameObject.transform.position = SpawnManager.instance.purpleSpawns[spawnIndex].position;
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} is at {gameObject.transform.position}");
+        gameObject.GetComponent<CharacterController>().enabled = true;
+    }
 }

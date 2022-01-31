@@ -159,7 +159,15 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
             }
             PhotonNetwork.PlayerList[i].SetCustomProperties(teamToSet);
         }
+
+        Invoke("TryingToInvokeSpawn", 2f);
     }
+
+    void TryingToInvokeSpawn()
+    {
+        SpawnManager.instance.SetAllPlayerSpawns();
+    }
+
     void GameOver()
     {
         gameOver = true;

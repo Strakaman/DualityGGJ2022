@@ -59,7 +59,7 @@ public class DigiTeamsManager : MonoBehaviourPunCallbacks
         }
 
         //reversing the players on team value is current multiplier structure
-        greenMultiplier = PhotonNetwork.PlayerList.Length - playersOnPurple;
-        purpleMultiplier = PhotonNetwork.PlayerList.Length - playersOnGreen;
+        greenMultiplier = PhotonNetwork.PlayerList.Length - playersOnGreen;
+        purpleMultiplier = PhotonNetwork.PlayerList.Length - playersOnPurple;
     }
 }
