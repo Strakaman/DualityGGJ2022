@@ -132,26 +132,24 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
 
     void SplitTeams()
     {
-        int halfPlayerCount = PhotonNetwork.PlayerList.Length / 2;
+        int fullPlayerCount = PhotonNetwork.PlayerList.Length;
+        int halfPlayerCount = fullPlayerCount / 2;
         List<int> playerIndexList = new List<int>();
         for (int i = 0; i < halfPlayerCount; i++)
         {
-            int index = Random.Range(0, halfPlayerCount);
-            if (playerIndexList.Contains(index))
+            int index = Random.Range(0, fullPlayerCount);
+            while (playerIndexList.Contains(index))
             {
-                continue;
+                index = Random.Range(0, fullPlayerCount);
             }
-            else
-            {
-                playerIndexList.Add(index);
-            }
+            playerIndexList.Add(index);
         }
         for(int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             Hashtable teamToSet;
             if (playerIndexList.Contains(i))
             {
-                teamToSet= new Hashtable { { Constants.TEAM_KEY, Constants.GREEN_TEAM } };
+                teamToSet = new Hashtable { { Constants.TEAM_KEY, Constants.GREEN_TEAM } };
             }
             else
             {

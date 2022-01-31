@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2d056ac30ecc9e542b26e06133f23602, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1059,6 +1059,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharSelectPlayerV2
       objectReference: {fileID: 0}
+    - target: {fileID: 4851383254024652598, guid: 5409d382ac1b4b342a134bed724f0589, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5194976873609387404, guid: 5409d382ac1b4b342a134bed724f0589, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1113,10 +1117,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2037104286, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 793285704707936845, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1125,14 +1125,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 793285704707936845, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
-      objectReference: {fileID: 0}
-    - target: {fileID: 793285704707936845, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
-      objectReference: {fileID: 0}
     - target: {fileID: 1025016107366818554, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1141,14 +1133,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 1025016107366818554, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025016107366818554, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
-      objectReference: {fileID: 0}
     - target: {fileID: 1480188805116617873, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1157,14 +1141,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 1480188805116617873, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
-      objectReference: {fileID: 0}
-    - target: {fileID: 1480188805116617873, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
-      objectReference: {fileID: 0}
     - target: {fileID: 2372994453567569608, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1173,13 +1149,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 2372994453567569608, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
+    - target: {fileID: 4157100495577471810, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
+      propertyPath: m_Type
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2372994453567569608, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
+    - target: {fileID: 4157100495577471810, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4157100495577471810, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4157100495607758976, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_RootOrder
@@ -1237,14 +1217,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 4857594940477872332, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857594940477872332, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
-      objectReference: {fileID: 0}
     - target: {fileID: 5389855890936201970, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1253,14 +1225,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6705970640224163915}
-    - target: {fileID: 5389855890936201970, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Local_SetCharacterHead
-      objectReference: {fileID: 0}
-    - target: {fileID: 5389855890936201970, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StartDemoAnimation
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f856c3db7e54dc2459c13926411558dc, type: 3}
 --- !u!4 &6222765672778351344 stripped
