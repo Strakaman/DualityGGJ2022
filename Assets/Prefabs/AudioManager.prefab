@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterVolumePercent: 1
-  sfxVolumePercent: 1
+  sfxVolumePercent: 0.2
   musicVolumePercent: 1
   voiceVolumePercent: 1
 --- !u!114 &6693911462994497273
@@ -91,3 +91,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 5e9119dce0c36f54da51aa09674019e9, type: 3}
     - {fileID: 8300000, guid: 0cedae81b7fa9164f87098e9e1c24cad, type: 3}
     - {fileID: 8300000, guid: b25d7ad70d491174f9cdac733ae2e875, type: 3}
+  - groupID: Shot
+    group:
+    - {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
+    - {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}

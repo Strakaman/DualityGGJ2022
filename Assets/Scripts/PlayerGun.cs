@@ -66,6 +66,7 @@ public class PlayerGun : MonoBehaviourPunCallbacks
         Vector3 bulletVelocity = muzzleTransform.forward * bulletTimeJKSpeed;
         bullet.SetBulletProperties(DigiGameManager.instance.GetPlayerTeam(photonView.ControllerActorNr), owningPlayer, bulletVelocity);
         animatorScript.isShooting = true;
+        AudioManager.instance.PlaySound(Constants.Sound_Shot,transform.localPosition);
         RefreshShootingAnimationCooldown();
     }
 

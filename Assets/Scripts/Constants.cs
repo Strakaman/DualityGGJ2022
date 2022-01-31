@@ -34,6 +34,7 @@ public static class Constants
     public const string Sound_Winner = "Winner";
     public const string Sound_Green = "Green";
     public const string Sound_Purple = "Purple";
+    public const string Sound_Shot = "Shot";
 
     public static Color GetTeamColor(string teamName)
     {
