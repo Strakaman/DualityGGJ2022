@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bfcf8608697e743ae1f9a668071f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolumePercent: 1
+  masterVolumePercent: 0.4
   sfxVolumePercent: 0.2
-  musicVolumePercent: 0.3
+  musicVolumePercent: 0.1
   voiceVolumePercent: 1
 --- !u!114 &6693911462994497273
 MonoBehaviour:

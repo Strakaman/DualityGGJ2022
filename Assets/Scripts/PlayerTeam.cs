@@ -16,8 +16,8 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
     public SkinnedMeshRenderer playerSkinRenderer;
     public float timeSinceLastSwitch { get; private set; }
     public int amountSwitched { get; private set; }
-    public float timeOnGreenTeam { get; private set; }
-    public float timeOnPurpleTeam { get; private set; }
+    public float timeOnGreenTeam { get; set; }
+    public float timeOnPurpleTeam { get; set; }
 
     public int minNumOfPlayersForTeam { get; private set; }
 
@@ -157,7 +157,7 @@ public class PlayerTeam : MonoBehaviourPunCallbacks
         if (PhotonNetwork.PlayerList.Length == 1) { return true; } //for solo testing 
         foreach(Player p in PhotonNetwork.PlayerList)
         {
-            if (p.CustomProperties[Constants.TEAM_KEY].Equals(teamName));
+            if (((string)p.CustomProperties[Constants.TEAM_KEY]).Equals(teamName))
             {
                 numOfPplOnTeam++;
             }

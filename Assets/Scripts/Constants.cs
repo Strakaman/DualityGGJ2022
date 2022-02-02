@@ -21,6 +21,7 @@ public static class Constants
     public const string TIME_GREEN_KEY = "TimeGreen";
     public const string TIME_PURPLE_KEY = "TimePurple";
     public const string WINNING_TEAM_KEY = "WinningTeam";
+    public const string TIME_LEFT_KEY = "TimeLeft";
 
     public const string GREEN_TEAM = "GreenTeam";
     public const string PURPLE_TEAM = "PurpleTeam";

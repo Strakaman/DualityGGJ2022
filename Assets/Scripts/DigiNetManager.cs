@@ -63,6 +63,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         joinRandomLobbyButton.interactable = true;
         createroomButton.interactable = true;
+        PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString(Constants.playerName, $"Block Head: {UnityEngine.Random.Range(1, 1000)}");
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
@@ -91,7 +92,9 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log($"successfully joined Room: {PhotonNetwork.CurrentRoom.Name} Count: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString(Constants.playerName);
+        if (PhotonNetwork.LocalPlayer.NickName.Equals(string.Empty)) {
+            PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString(Constants.playerName, $"Block Head: {UnityEngine.Random.Range(1, 1000)}");
+        }
         createroomButton.interactable = false;
         playerListGUI.BuildPlayerListGUI(PhotonNetwork.PlayerList);
     }
@@ -164,6 +167,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
 
     public void SetPlayerName(string playerName)
     {
+        if (playerName.Equals(string.Empty)) { return; }
         potentialplayerName = playerName;
         PlayerPrefs.SetString(Constants.playerName, playerName);
         PhotonNetwork.LocalPlayer.NickName = playerName;

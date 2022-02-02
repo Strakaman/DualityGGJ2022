@@ -6,6 +6,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
+using System;
 
 public class DigiGameManager : MonoBehaviourPunCallbacks
 {
@@ -15,7 +17,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     public static DigiGameManager instance;
 
     int matchTimeinSeconds = 180;
-    public int timeLeft { get; private set; }
+    public float timeLeft { get; private set; }
     //public string WinningTeam { get; private set; }
     public bool timeUp = false;
     public bool gameStarted = false;
@@ -47,11 +49,10 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
             timeUp = false;
             GameOver();
         }
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        MakeDigiPlayerDictionary();
+        if (gameStarted && !gameOver)
+        {
+            HUDManager.instance.UpdateTimeLeft();
+        }
     }
 
     #region PlayerRefs
@@ -123,17 +124,20 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     #region GameLoop
     void InitMatch()
     {
+        timeLeft = matchTimeinSeconds;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { Constants.TIME_LEFT_KEY, timeLeft } });
+        }
         initFinished = false;
         gameStarted = false;
         timeUp = false;
         gameOver = false;
-        timeLeft = matchTimeinSeconds;
         if(PhotonNetwork.IsMasterClient)
         {
             SplitTeams();
         }
         StartCoroutine(GameInit());
-
     }
 
     void SplitTeams()
@@ -163,7 +167,6 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
             }
             PhotonNetwork.PlayerList[i].SetCustomProperties(teamToSet);
         }
-
         Invoke("TryingToInvokeSpawn", 2f);
     }
 
@@ -236,23 +239,41 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     IEnumerator GameTimer()
     {
         gameStarted = true;
-        HUDManager.instance.UpdateTimeLeft();
-        while (gameStarted && timeLeft > 0)
+        float timeLoopPeriod = .5f;
+        while (gameStarted && GetTimeLeft() > 0)
         {
-            yield return new WaitForSeconds(1);
-            timeLeft -= 1;
-            HUDManager.instance.UpdateTimeLeft();
-        }
+            yield return new WaitForSeconds(timeLoopPeriod);
+            timeLeft -= timeLoopPeriod;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { Constants.TIME_LEFT_KEY, timeLeft } });
+            }
+  }
         timeUp = true;
     }
 
+    public int GetMatchTime()
+    {
+        return matchTimeinSeconds;
+    }
+    public float GetTimeLeft()
+    {
+        try
+        {
+            return (float)PhotonNetwork.CurrentRoom.CustomProperties[Constants.TIME_LEFT_KEY];
+        }
+        catch (NullReferenceException)
+        { 
+            return timeLeft;
+        }
+    }
     IEnumerator GameOverShenanigans()
     {
         statusText.text = "Time's Up!";
         AudioManager.instance.PlaySound2D(Constants.Sound_TimeUp);
         statusText.color = Color.white;
         statusText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         statusText.text = "The winner is...";
         AudioManager.instance.PlaySound2D(Constants.Sound_Winner);
         statusText.color = Color.white;
@@ -300,6 +321,13 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
     public void RPC_LoadNewMatch()
     {
         SceneManager.LoadScene(1);
+    }
+    #endregion
+
+    #region PunCallbacks
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        MakeDigiPlayerDictionary();
     }
     #endregion
 }
