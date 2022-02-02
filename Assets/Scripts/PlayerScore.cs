@@ -18,13 +18,13 @@ public class PlayerScore : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
-        {
-            if (Keyboard.current.cKey.isPressed)
-            {
-                IncreaseScore(1);
-            }
-        }
+        //if (photonView.IsMine)
+        //{
+        //    if (Keyboard.current.cKey.isPressed)
+        //    {
+        //        IncreaseScore(1);
+        //    }
+        //}
     }
 
     public void IncreaseScore(int howMuch)
