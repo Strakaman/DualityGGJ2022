@@ -43,18 +43,19 @@ public class DigiPlayer : MonoBehaviourPunCallbacks
     public void PushMatchStats()
     {
         playerTeam.UpdateLastTeamDuration(); //update the time spent on whatever your last team was.
+        int matchTime = DigiGameManager.instance.GetMatchTime();
+        if (playerTeam.timeOnGreenTeam > matchTime)
+        {
+            playerTeam.timeOnGreenTeam = matchTime; //workaround for bug where time on teams was exceeding match time
+        }
+        float purpleTimeSub = matchTime - playerTeam.timeOnGreenTeam;
         Hashtable matchStats = new Hashtable { 
             { Constants.ENEMIES_SHOT_KEY, enemiesShot },
             { Constants.NUM_SWITCHES_KEY, playerTeam.amountSwitched },
             { Constants.TIME_GREEN_KEY, Mathf.Round(playerTeam.timeOnGreenTeam) },
-            { Constants.TIME_PURPLE_KEY, Mathf.Round(playerTeam.timeOnPurpleTeam) }
+            { Constants.TIME_PURPLE_KEY, Mathf.Round(purpleTimeSub) }
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(matchStats);
-
-
-
-        Debug.Log("Here are the game stats that I pushed");
-
     }
 
     public void MoveToGreenSpot(int spawnIndex)

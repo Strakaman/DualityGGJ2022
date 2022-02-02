@@ -49,9 +49,9 @@ public class AudioManager : MonoBehaviour
 
 			audioListener = FindObjectOfType<AudioListener>().transform;
 			CacheMyPlayerTransform();
-			masterVolumePercent = PlayerPrefs.GetFloat("master vol", 1);
+			//masterVolumePercent = PlayerPrefs.GetFloat("master vol", 1);
 			//sfxVolumePercent = .2f;//PlayerPrefs.GetFloat("sfx vol", .2f);
-			voiceVolumePercent = PlayerPrefs.GetFloat("voice vol", 1);
+			//voiceVolumePercent = PlayerPrefs.GetFloat("voice vol", 1);
 			//musicVolumePercent = .5f;//PlayerPrefs.GetFloat("music vol", .5f);
 		}
 	}

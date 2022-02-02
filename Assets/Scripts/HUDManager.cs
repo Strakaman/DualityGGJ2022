@@ -55,7 +55,7 @@ public class HUDManager : MonoBehaviourPunCallbacks
 
     public void UpdateTimeLeft()
     {
-        TimeSpan time = TimeSpan.FromSeconds(DigiGameManager.instance.timeLeft);
+        TimeSpan time = TimeSpan.FromSeconds(DigiGameManager.instance.GetTimeLeft());
         //here backslash is must to tell that colon is
         //not the part of format, it just a character that we want in output
         string str = time.ToString(@"mm\:ss");
