@@ -5480,7 +5480,7 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Twerk
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!1 &9169003964092688656
 GameObject:

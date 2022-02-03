@@ -27,16 +27,38 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        potentialplayerName = PlayerPrefs.GetString(Constants.playerName);
-        if (!potentialplayerName.Equals(string.Empty))
+        if (PhotonNetwork.LocalPlayer.NickName.Equals(string.Empty))
         {
-            playerNameInputField.SetTextWithoutNotify(potentialplayerName);
-            PhotonNetwork.LocalPlayer.NickName = potentialplayerName;
+            potentialplayerName = PlayerPrefs.GetString(Constants.playerName);
+            if (!potentialplayerName.Equals(string.Empty))
+            {
+                playerNameInputField.SetTextWithoutNotify(potentialplayerName);
+                PhotonNetwork.LocalPlayer.NickName = potentialplayerName;
+            }
+            Debug.Log($"Lobby Name: {potentialplayerName}");
         }
-        Debug.Log($"Lobby Name: {potentialplayerName}");
-        joinLobbyButton.interactable = false;
-        startMatchButton.interactable = false;
-        DigiConnect();
+        if (PhotonNetwork.IsConnected)
+        {
+            joinLobbyButton.interactable = false;
+            joinRandomLobbyButton.interactable = false;
+            createroomButton.interactable = false;
+            createdRoomNameText.text = PhotonNetwork.CurrentRoom.Name;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                startMatchButton.interactable = true;
+            }
+            else
+            {
+                startMatchButton.interactable = false;
+            }
+            playerListGUI.BuildPlayerListGUI(PhotonNetwork.PlayerList);
+        }
+        else
+        {
+            joinLobbyButton.interactable = false;
+            startMatchButton.interactable = false;
+            DigiConnect();
+        }
     }
 
     private void Awake()
@@ -44,11 +66,6 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;   
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     #region PUNOverrides
     public override void OnJoinRandomFailed(short returnCode, string message)

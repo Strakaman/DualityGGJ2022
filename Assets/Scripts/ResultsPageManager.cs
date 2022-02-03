@@ -74,6 +74,6 @@ public class ResultsPageManager : MonoBehaviour
 
     public void OnClick_PlayAgain()
     {
-        DigiGameManager.instance.TriggerNewMatch();
+        DigiGameManager.instance.GoBackToLobby();
     }
 }

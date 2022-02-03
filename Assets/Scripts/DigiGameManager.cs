@@ -298,12 +298,12 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
         yield return null;
     }
 
-    public void TriggerNewMatch()
+    public void GoBackToLobby()
     {
         //photonView.RPC(nameof(RPC_LoadNewMatch), RpcTarget.All);
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel(0);
         }
 
     }
