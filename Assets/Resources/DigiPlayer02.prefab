@@ -5453,34 +5453,34 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isWalking
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isDancing
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isShooting
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Swing
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Macarena
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Martelo
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Salsa
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Breakdance
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Twerk
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 0
 --- !u!1 &9169003964092688656
 GameObject:

@@ -72,7 +72,7 @@ public class ResultsPageManager : MonoBehaviour
         DigiGameManager.instance.QuitSelected();
     }
 
-    public void OnClick_PlayAgain()
+    public void OnClick_ReturnToLobby()
     {
         DigiGameManager.instance.GoBackToLobby();
     }

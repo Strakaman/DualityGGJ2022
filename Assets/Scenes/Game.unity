@@ -2785,7 +2785,7 @@ GameObject:
   - component: {fileID: 712718093}
   - component: {fileID: 712718092}
   m_Layer: 0
-  m_Name: PlayAgain
+  m_Name: ReturnToLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2856,7 +2856,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1517106007}
         m_TargetAssemblyTypeName: ResultsPageManager, Assembly-CSharp
-        m_MethodName: OnClick_PlayAgain
+        m_MethodName: OnClick_ReturnToLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
