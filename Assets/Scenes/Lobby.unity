@@ -2229,7 +2229,12 @@ MonoBehaviour:
   dances:
   - Twerk
   - Macarena
+  - House
+  - Rumba
+  - HipHop
   - Salsa
+  - Breakdance
+  - Sway
 --- !u!95 &6705970640224163916 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3906636697831000438, guid: 5409d382ac1b4b342a134bed724f0589, type: 3}
