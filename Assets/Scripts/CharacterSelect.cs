@@ -16,12 +16,14 @@ public class CharacterSelect : MonoBehaviour
 
     void OnEnable()
     {
-       UpdateGUI(PlayerPrefs.GetInt(Constants.CharacterHead,0));
+       UpdateGUI(PlayerPrefs.GetInt(Constants.CharacterHead,(int)Shape.Random));
     }
 
     void UpdateGUI(int indexSelected)
     {
         characterNameText.text = $"{(Shape)indexSelected} Head";
+        //loop through each box, highlight the one that matches selected head, unhighlight the rest.
+        //assumes characterHeads array in DigiPlayerAnimation and selectionHighlights array share index
         for (int i = 0; i < selectionHighlights.Length; i++)
         {
             Transform t = selectionHighlights[i].transform;
@@ -33,7 +35,11 @@ public class CharacterSelect : MonoBehaviour
             {
                 t.GetComponent<Image>().color = Color.white;
             }
-
+        }
+        if (indexSelected == (int)Shape.Random) //since 999 won't be an index in the array, special check for random selection
+        {
+            selectionHighlights[selectionHighlights.Length-1].
+                transform.GetComponent<Image>().color = Color.green;
         }
     }
 }

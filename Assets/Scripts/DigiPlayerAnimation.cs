@@ -32,8 +32,7 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
     {
         if (photonView !=null && photonView.IsMine && !demoMode)
         {
-            int characterSelection = UnityEngine.Random.Range(0,5);
-            //int characterSelection = PlayerPrefs.GetInt(Constants.CharacterHead, 0); //TODO: put back once character select looks better
+            int characterSelection = PlayerPrefs.GetInt(Constants.CharacterHead, (int)Shape.Random); 
             //all buffered meaning players that join after will get this call also, no effect now
             photonView.RPC(nameof(RPC_SetCharacterHead), RpcTarget.AllBuffered,characterSelection);
         }
@@ -83,7 +82,7 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
     {
         if (demoMode)
         {
-            Local_SetCharacterHead(PlayerPrefs.GetInt(Constants.CharacterHead, 0));
+            Local_SetCharacterHead(PlayerPrefs.GetInt(Constants.CharacterHead, (int)Shape.Random));
         }
     }
 
