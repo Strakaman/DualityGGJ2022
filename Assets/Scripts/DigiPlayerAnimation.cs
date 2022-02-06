@@ -32,7 +32,12 @@ public class DigiPlayerAnimation : MonoBehaviourPunCallbacks
     {
         if (photonView !=null && photonView.IsMine && !demoMode)
         {
-            int characterSelection = PlayerPrefs.GetInt(Constants.CharacterHead, (int)Shape.Random); 
+            int characterSelection = PlayerPrefs.GetInt(Constants.CharacterHead, (int)Shape.Random);
+            if (characterSelection == (int)Shape.Random)
+            {
+                //if random, choose head b4 sending rpc so the head is the same on that player for each client
+                characterSelection = UnityEngine.Random.Range(0, characterHeads.Length);
+            }
             //all buffered meaning players that join after will get this call also, no effect now
             photonView.RPC(nameof(RPC_SetCharacterHead), RpcTarget.AllBuffered,characterSelection);
         }
