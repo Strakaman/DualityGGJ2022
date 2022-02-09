@@ -27,6 +27,7 @@ public class DigiNetManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         if (PhotonNetwork.LocalPlayer.NickName.Equals(string.Empty))
         {
             potentialplayerName = PlayerPrefs.GetString(Constants.playerName);

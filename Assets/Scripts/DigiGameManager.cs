@@ -31,6 +31,7 @@ public class DigiGameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         Vector3 pos = new Vector3(Random.Range(1, 5), 1.25f, Random.Range(1, 5));
         PhotonNetwork.Instantiate(playerPrefab.name, pos, Quaternion.identity);
         Invoke("MakeDigiPlayerDictionary",1f);
