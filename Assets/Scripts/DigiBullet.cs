@@ -5,27 +5,37 @@ using UnityEngine;
 
 public class DigiBullet : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject sphereGameObject;
+    public ParticleSystem projectileParticleSystem;
+    public ParticleSystem collisionParticleSystem;
 
-    public new ParticleSystem particleSystem;
     public LayerMask whoDoIHit;
     public TrailRenderer trailRenderer;
-    public new Rigidbody rigidbody;
     public bool demoMode;
 
+    SphereCollider mySphereCollider;
+    Rigidbody myRigidBody;
+    bool collisionAnimationPlaying = false;
 
     //set by bullet data setup
     public string ownerTeam;
     public DigiPlayer bulletOwner;
+
+    void Awake()
+    {
+        mySphereCollider = GetComponent<SphereCollider>();
+        myRigidBody = GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
         if (demoMode)
         {
-            GetComponent<Rigidbody>().velocity = new Vector3(-5, 0, -5);
+           myRigidBody.velocity = new Vector3(-5, 0, -5);
         }
         else
         {
-            Destroy(this.gameObject, 2f);
+            Invoke(nameof(DestroyIfUnflagged), 2f);
         }
     }
 
@@ -33,17 +43,17 @@ public class DigiBullet : MonoBehaviour
     {
         ownerTeam = shootingTeam;
         bulletOwner = shootingPlayer;
-        rigidbody.velocity = velocity;
+        myRigidBody.velocity = velocity;
         if (ownerTeam.Equals(Constants.GREEN_TEAM))
         {
             trailRenderer.startColor = Constants.greenTeamColor;
-            ParticleSystem.MainModule mainMod = particleSystem.main;
+            ParticleSystem.MainModule mainMod = projectileParticleSystem.main;
             mainMod.startColor = Constants.greenTeamColor;
         }
         else
         {
             trailRenderer.startColor = Constants.purpleTeamColor;
-            ParticleSystem.MainModule mainMod = particleSystem.main;
+            ParticleSystem.MainModule mainMod = projectileParticleSystem.main;
             mainMod.startColor = Constants.purpleTeamColor;
         }
     }
@@ -52,10 +62,11 @@ public class DigiBullet : MonoBehaviour
     {
         if(other == null) { return; }
         GameObject victimeGameObject = other.gameObject;
-        Debug.Log($"Hit: {victimeGameObject.name} Layer Mask: {LayerMask.LayerToName(victimeGameObject.layer)}");
+        //Debug.Log($"Hit: {victimeGameObject.name} Layer Mask: {LayerMask.LayerToName(victimeGameObject.layer)}");
         if (victimeGameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Destroy(this.gameObject);
+            myRigidBody.velocity = Vector3.zero; //put here in an attempt to immediately stop the object.
+            StartCoroutine(CollisionAnimation());
         }
         else if (victimeGameObject.layer == LayerMask.NameToLayer("Player"))
         {
@@ -64,13 +75,33 @@ public class DigiBullet : MonoBehaviour
             string team = DigiGameManager.instance.GetPlayerTeam(playerVictim.photonView.ControllerActorNr);
             if (!ownerTeam.Equals(team)) //owner team of the bullet is different than player that got hit
             {
+                myRigidBody.velocity = Vector3.zero;
                 if (bulletOwner.photonView.IsMine)
                 {
                     bulletOwner.playerScore.IncreaseScore(1);
                     bulletOwner.EnemyHit();
                 }
-                Destroy(this.gameObject);
+                StartCoroutine(CollisionAnimation());
             }
         }
+    }
+
+    IEnumerator CollisionAnimation()
+    {
+        collisionAnimationPlaying = true;
+        projectileParticleSystem.Stop();
+        trailRenderer.enabled = false;
+        sphereGameObject.SetActive(false);
+        ParticleSystem.MainModule mainMod = projectileParticleSystem.main;
+        mainMod.startColor = Constants.GetTeamColor(ownerTeam);
+        collisionParticleSystem.Play();
+        yield return new WaitForSeconds(.15f);
+        Destroy(this.gameObject);
+    }
+
+    void DestroyIfUnflagged()
+    {
+        if (collisionAnimationPlaying) { return; } //already flagged to destroy so Coroutine will handle it.
+        Destroy(this.gameObject);
     }
 }
